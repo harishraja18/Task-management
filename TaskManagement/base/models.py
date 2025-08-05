@@ -5,7 +5,7 @@ from django.db import models
 class TaskManagement(models.Model):
     name = models.CharField(max_length=100)
     task_name = models.CharField(max_length=100)
-    contact = models.IntegerField(max_length=10)
+    contact = models.IntegerField()
     description = models.TextField()
     priority = models.CharField(max_length=100)
     status = models.CharField(max_length=100)

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import TaskManagement
 from .forms import TaskRead
 from django.contrib import messages
+from django.db.models import Q   #this is a one type of method to search
 # Create your views here.
 
 def home(request):
@@ -14,7 +15,21 @@ def home(request):
     return render(request,'home.html',context)
 
 def read(request):
-    task = TaskManagement.objects.all().order_by('-id')
+    search = request.GET.get('q')
+    if search:
+        task = TaskManagement.objects.filter(
+            Q(name__icontains =  search) |
+            Q(task_name__icontains =  search) |
+            Q(contact__icontains =  search) |
+            Q(description__icontains =  search) |
+            Q(priority__icontains =  search) |
+            Q(status__icontains =  search) |
+            Q(due_date__icontains =  search) |
+            Q(created_at__icontains =  search) |
+            Q(updated_at__icontains =  search) 
+        )
+    else:
+        task = TaskManagement.objects.all().order_by('-id')
     context = {'task':task}
     return render(request,'read.html',context)
 
