@@ -1,0 +1,20 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="container">
+    <h1 class="page-title">Task Manager</h1>
+
+    <div class="form-wrapper">
+        <form method="POST" id="taskForm">
+            {% csrf_token %}
+            {{ task.as_p }}
+
+            <div class="btn-group">
+                <button type="submit" class="btn primary">Submit</button>
+                <a href="{% url 'read' %}" class="btn secondary">View Tasks</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
